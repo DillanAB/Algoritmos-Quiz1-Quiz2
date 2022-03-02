@@ -33,18 +33,36 @@ public:
     }
 };
 
+class Media{
+    private: 
+        string tipo;
+        string nombre;
+        string autor;
+        string fecha;
+    public:
+        Media(string t, string n, string a, string f){
+            this->tipo = t;
+            this->nombre = n;
+            this->autor = a;
+            this->fecha = f;
+        }
+    string getDatos(){
+        return tipo+ ": "+nombre+"  Autor: "+autor+"  "+fecha;
+    }
+};
+
 class NoticiaDigital : public Noticia{
 private:
-    vector<string> listaMedia;
+    vector<Media> listaMedia;
 public:
-    NoticiaDigital(vector<string> lista){
+    NoticiaDigital(vector<Media> lista){
         this->listaMedia = lista;
     }
     virtual void getInfo(){
         cout<<titulo<<endl;
         cout<<reportero<<"  "<<fecha<<endl;
         for (int i=0; i<listaMedia.size(); i++){
-            cout<<listaMedia[i]<<endl;
+            cout<<listaMedia[i].getDatos()<<endl;
         }
         return;
     }
@@ -76,7 +94,10 @@ int main(int argc, char** argv){
     nPaper->reportero = "DW";
     nPaper->fecha = "3/1/2022";
 
-    vector<string> l = {"Foto1.jpg", "Video.mp4", "Audio.mp3", "Foto2.png"};
+    Media foto("Foto", "Mapache", "Samuel", "3/1/2022");
+    Media vid("Video","Cruza","Samuel","3/1/2022");
+    Media audio("Audio", "EntrevistaMapache","Benito","3/1/2022");
+    vector<Media> l = {foto, vid, audio};
     NoticiaDigital* nDigital = new NoticiaDigital(l);
     nDigital->titulo = "Mapache ayuda a senora a cruzar la calle";
     nDigital->reportero = "Teletica";
@@ -94,6 +115,5 @@ int main(int argc, char** argv){
         nArray[i]->getInfo();
         cout<<endl<<endl;
     }
-    
     return 0;
 }
